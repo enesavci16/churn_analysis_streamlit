@@ -34,7 +34,7 @@ import warnings
 warnings.filterwarnings('ignore')
 from sklearn.metrics import accuracy_score
 #DATA
-data_churn=pd.read_csv("G:\Drive'ım\data_science_calismalar\ist_data_science_3_proje_calisma/churn.csv")
+data_churn=pd.read_csv("churn.csv")
 
 image = Image.open('akademi.jpeg')
 st.image(image, caption='Istanbul Data Science Academy')
