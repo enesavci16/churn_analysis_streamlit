@@ -4,16 +4,15 @@ import pickle
 import numpy as np
 import pandas as pd
 
-import matplotlib.pyplot as plt
-from sklearn import datasets
+
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, roc_auc_score, roc_curve, confusion_matrix, accuracy_score, auc
 from PIL import Image
 #Model
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+i
+
 import plotly.express as px
 from sklearn.preprocessing import StandardScaler,LabelEncoder
 from sklearn.model_selection import train_test_split
