@@ -11,7 +11,7 @@ from PIL import Image
 #Model
 import pandas as pd
 import numpy as np
-i
+
 
 import plotly.express as px
 from sklearn.preprocessing import StandardScaler,LabelEncoder
@@ -29,8 +29,7 @@ from sklearn.svm import SVC, LinearSVC
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.metrics import classification_report, roc_auc_score, roc_curve, confusion_matrix, accuracy_score, auc
-import warnings
-warnings.filterwarnings('ignore')
+
 from sklearn.metrics import accuracy_score
 #DATA
 data_churn=pd.read_csv("churn.csv")
