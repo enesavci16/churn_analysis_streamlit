@@ -1,0 +1,1 @@
+web: gunicorn wsgi:pythonProject_churn_analysis
