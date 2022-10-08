@@ -33,8 +33,8 @@ from sklearn.metrics import accuracy_score
 #DATA
 
 
-image = Image.open('akademi.jpeg')
-st.image(image, caption='Istanbul Data Science Academy')
+#image = Image.open('akademi.jpeg')
+#st.image(image, caption='Istanbul Data Science Academy')
 data_churn=pd.read_csv("churn.csv")
 st.title('CHURN PREDICTION')
 
