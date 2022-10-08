@@ -31,11 +31,11 @@ from sklearn.metrics import classification_report, roc_auc_score, roc_curve, con
 
 from sklearn.metrics import accuracy_score
 #DATA
-data_churn=pd.read_csv("churn.csv")
+
 
 image = Image.open('akademi.jpeg')
 st.image(image, caption='Istanbul Data Science Academy')
-
+data_churn=pd.read_csv("churn.csv")
 st.title('CHURN PREDICTION')
 
 data = data_churn
