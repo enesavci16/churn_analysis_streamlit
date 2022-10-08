@@ -1,1 +1,1 @@
-web: gunicorn wsgi:pythonProject_churn_analysis
+web: gunicorn:pythonProject_churn_analysis
