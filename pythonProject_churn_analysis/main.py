@@ -234,7 +234,7 @@ def predict_p():
     #arr = arr.astype(np.float64) # Change the data type to float
     query = arr.reshape(1, -1) # Reshape the array
     result = model.predict(input_df)
-    print (result) # Return the prediction
+    return result # Return the prediction
 
 st.write(predict_p)
 
