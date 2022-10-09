@@ -57,8 +57,8 @@ model= RandomForestClassifier()
 model.fit(X_train, y_train)
 pred=model.predict(X_test)
 acc_rf=accuracy_score(pred,y_test)
-st.write("Model acuraccy score:")
-st.write(acc_rf)
+#st.write("Model acuraccy score:")
+#st.write(acc_rf)
 
 
 
@@ -85,20 +85,20 @@ st.title('CHURN PREDICTION')
 
 st.sidebar.header('INPUT')
 def user_input_features():
-    selected_CreditScore = st.sidebar.slider('Kredi skorunu giriniz', 0,900, 1)
-    selected_Geography = st.sidebar.selectbox("Bölge seçiniz", ["France", "Spain", "Germany"])
-    selected_Gender = st.sidebar.selectbox("Cinsiyet seçiniz",  ["Male", "Female"])
-    selected_Age = st.sidebar.slider( "Yaşınızı giriniz:",18,110)
+    selected_CreditScore = st.sidebar.slider('Credit Score', 0,900, 1)
+    selected_Geography = st.sidebar.selectbox("Select Geography", ["France", "Spain", "Germany"])
+    selected_Gender = st.sidebar.selectbox("Select Gender",  ["Male", "Female"])
+    selected_Age = st.sidebar.slider( "Select Age:",18,110)
 
-    selected_Tenure = st.sidebar.slider("Kaç yıldır müşterimiz siniz?", 0,50,1)
-    selected_Balance = st.sidebar.number_input("Lütfen bankamızdaki bakiyenizi giriniz:",
+    selected_Tenure = st.sidebar.slider("Tenure", 0,50,1)
+    selected_Balance = st.sidebar.number_input("Balance",
                                                value=0,
                                                min_value=0,
                                                max_value=300000)
-    selected_NumOfProducts = st.sidebar.slider("Lütfen bankamızdaki ürün sayısını giriniz:",0,10,1)
-    selected_HasCrCard = st.sidebar.slider("Sahip olunan kredi kart sayısı", 0,10, 1)
-    selected_IsActiveMember = st.sidebar.selectbox("Aktif üye mi?",["Aktif", "Pasif"])
-    selected_EstimatedSalary = st.sidebar.number_input("Tahmini gelir seviyesi:",
+    selected_NumOfProducts = st.sidebar.slider("Num of Products",0,10,1)
+    selected_HasCrCard = st.sidebar.selectbox("Has Credit Card?",  ["Yes", "No"])
+    selected_IsActiveMember = st.sidebar.selectbox("Is Active Member?",["Active", "Passive"])
+    selected_EstimatedSalary = st.sidebar.number_input("Estimated Salary",
                                                        value=0,
                                                        min_value=0,
                                                        max_value=200000)
@@ -199,12 +199,18 @@ def dummy_gender(df):
     return df
 
 def dummy_active(df):
-    if df["IsActiveMember"].values == "Aktif":
+    if df["IsActiveMember"].values == "Active":
         df["IsActiveMember"] = df["IsActiveMember"] = 1
-    elif df["IsActiveMember"].values == "Pasif":
+    elif df["IsActiveMember"].values == "Passive":
       df["IsActiveMember"] = df["IsActiveMember"] = 0
     return df
 
+def dummy_Credit_Card(df):
+    if df["HasCrCard"].values == "Yes":
+        df["HasCrCard"] = df["HasCrCard"] = 1
+    elif df["HasCrCard"].values == "No":
+      df["HasCrCard"] = df["HasCrCard"] = 0
+    return df
 
 
 dummy_geo(input_df)
@@ -214,8 +220,9 @@ dummy_score(input_df)
 dummy_salary(input_df)
 dummy_gender(input_df)
 dummy_active(input_df)
+dummy_Credit_Card(input_df)
 
-st.write(input_df)
+#st.write(input_df)
 
 # load the model from disk
 filename = 'last_model_rf.sav'
@@ -230,8 +237,6 @@ def predict():
 
 
 
-
-
 onay = Image.open('onay.jfif')
 
 ret = Image.open('ret_2.jfif')
@@ -242,11 +247,9 @@ if hesapla:
     if pr==1:
         st.write("CHURN")
         st.image(ret, caption='CHURN')
-        
     elif pr==0:
         print("NOT CHURN")
         st.image(onay, caption='NOT CHURN')
-        
 
 
 
