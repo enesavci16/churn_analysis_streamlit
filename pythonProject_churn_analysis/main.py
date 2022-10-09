@@ -230,9 +230,9 @@ def predict():
 
 
 
-onay = Image.open('onay.png')
+onay = Image.open('onay.jfif')
 
-ret = Image.open('ret_2.png')
+ret = Image.open('ret_2.jfif')
 
 hesapla=st.button("CHURN ANALYSIS")
 if hesapla:
