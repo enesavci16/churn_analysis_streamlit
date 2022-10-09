@@ -226,10 +226,17 @@ def predict():
     #arr = arr.astype(np.float64) # Change the data type to float
     query = arr.reshape(1, -1) # Reshape the array
     result = model.predict(input_df)
-    print(result)
     return result # Return the prediction
 
+def predict_p():
 
+    arr = np.array(input_df) # Convert to numpy array
+    #arr = arr.astype(np.float64) # Change the data type to float
+    query = arr.reshape(1, -1) # Reshape the array
+    result = model.predict(input_df)
+    print (result) # Return the prediction
+
+st.write(predict_p)
 
 onay = Image.open('onay.jfif')
 
@@ -237,15 +244,14 @@ ret = Image.open('ret_2.jfif')
 
 hesapla=st.button("CHURN ANALYSIS")
 if hesapla:
-    pr=predict()
     if pr==1:
         st.write("CHURN")
         st.image(ret, caption='CHURN')
-        st.write(predict)
+        
     elif pr==0:
         print("NOT CHURN")
         st.image(onay, caption='NOT CHURN')
-        st.write(predict)
+        
 
 
 
