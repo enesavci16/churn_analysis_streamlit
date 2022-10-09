@@ -244,6 +244,7 @@ ret = Image.open('ret_2.jfif')
 
 hesapla=st.button("CHURN ANALYSIS")
 if hesapla:
+     pr=predict()
     if pr==1:
         st.write("CHURN")
         st.image(ret, caption='CHURN')
