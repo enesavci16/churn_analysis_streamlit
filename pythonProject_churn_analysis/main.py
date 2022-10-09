@@ -28,7 +28,7 @@ warnings.filterwarnings('ignore')
 from sklearn.metrics import accuracy_score
 
 #DATA
-data_churn=pd.read_csv("G:\Drive'ım\data_science_calismalar\ist_data_science_3_proje_calisma/churn.csv")
+data_churn=pd.read_csv("churn.csv")
 """
 data = data_churn
 data.drop(columns=['RowNumber','CustomerId', 'Surname'], axis=1, inplace=True)
