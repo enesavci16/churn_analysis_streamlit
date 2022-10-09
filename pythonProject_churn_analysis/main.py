@@ -28,8 +28,8 @@ warnings.filterwarnings('ignore')
 from sklearn.metrics import accuracy_score
 
 #DATA
-data_churn=pd.read_csv("churn.csv")
-"""
+data_churn=pd.read_csv("G:\Drive'ım\data_science_calismalar\ist_data_science_3_proje_calisma/churn.csv")
+
 data = data_churn
 data.drop(columns=['RowNumber','CustomerId', 'Surname'], axis=1, inplace=True)
 Geography_dum = pd.get_dummies(data["Geography"], drop_first=True)
@@ -67,7 +67,7 @@ st.write(acc_rf)
 # save the model to disk
 filename = 'finalized_model.sav'
 pickle.dump(model, open(filename, 'wb'))
-"""
+
 # some time later...
 
 
@@ -225,7 +225,7 @@ def predict():
     arr = np.array(input_df) # Convert to numpy array
     #arr = arr.astype(np.float64) # Change the data type to float
     query = arr.reshape(1, -1) # Reshape the array
-    result = loaded_model.predict(input_df)
+    result = model.predict(input_df)
     return result # Return the prediction
 
 
