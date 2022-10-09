@@ -1,43 +1,35 @@
-import streamlit as st
 
-import pickle
-import numpy as np
-import pandas as pd
+# This is a sample Python script.
 
+# Press Shift+F10 to execute it or replace it with your code.
+# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report, roc_auc_score, roc_curve, confusion_matrix, accuracy_score, auc
-from PIL import Image
+#from imblearn.over_sampling import RandomOverSampler
+
 #Model
-import pandas as pd
+# from imblearn.over_sampling import RandomOverSampler
+
+# Model
+# Model
+# from imblearn.over_sampling import RandomOverSampler
+import pickle
+import warnings
+
 import numpy as np
-
-
-from sklearn.preprocessing import StandardScaler,LabelEncoder
+# Model
+import pandas as pd
+import streamlit as st
+from PIL import Image
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.svm import SVC
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import Perceptron
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import SVC, LinearSVC
-from sklearn.naive_bayes import GaussianNB
-from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.metrics import classification_report, roc_auc_score, roc_curve, confusion_matrix, accuracy_score, auc
+from sklearn.preprocessing import LabelEncoder
 
+warnings.filterwarnings('ignore')
 from sklearn.metrics import accuracy_score
+
 #DATA
-
-
-#image = Image.open('akademi.jpeg')
-#st.image(image, caption='Istanbul Data Science Academy')
-data_churn=pd.read_csv("churn.csv")
-st.title('CHURN PREDICTION')
-
+data_churn=pd.read_csv("G:\Drive'ım\data_science_calismalar\ist_data_science_3_proje_calisma/churn.csv")
+"""
 data = data_churn
 data.drop(columns=['RowNumber','CustomerId', 'Surname'], axis=1, inplace=True)
 Geography_dum = pd.get_dummies(data["Geography"], drop_first=True)
@@ -61,15 +53,35 @@ y = data['Exited']
 
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.10,random_state=42)
-model = RandomForestClassifier()
+model= RandomForestClassifier()
 model.fit(X_train, y_train)
 pred=model.predict(X_test)
 acc_rf=accuracy_score(pred,y_test)
 st.write("Model acuraccy score:")
 st.write(acc_rf)
+
+
+
+
+# save the model to disk
 # save the model to disk
 filename = 'finalized_model.sav'
 pickle.dump(model, open(filename, 'wb'))
+"""
+# some time later...
+
+
+
+# some time later...
+
+
+
+image = Image.open('akademi.jpeg')
+st.image(image, caption='Istanbul Data Science Academy')
+
+st.title('CHURN PREDICTION')
+
+
 
 st.sidebar.header('INPUT')
 def user_input_features():
@@ -113,8 +125,6 @@ st.header('User Choices')
 st.write(input_df)
 
 
-# load the model from disk
-loaded_model = pickle.load(open(filename, 'rb'))
 
 def dummy_geo(df):
     if df["Geography"].values=="France":
@@ -207,6 +217,9 @@ dummy_active(input_df)
 
 st.write(input_df)
 
+# load the model from disk
+filename = 'last_model_rf.sav'
+loaded_model = pickle.load(open(filename, 'rb'))
 def predict():
 
     arr = np.array(input_df) # Convert to numpy array
