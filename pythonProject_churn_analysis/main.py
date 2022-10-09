@@ -52,7 +52,7 @@ X = data.drop(columns=['Exited'])
 y = data['Exited']
 
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.10,random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20,random_state=42)
 model= RandomForestClassifier()
 model.fit(X_train, y_train)
 pred=model.predict(X_test)
@@ -226,7 +226,7 @@ def predict():
     #arr = arr.astype(np.float64) # Change the data type to float
     query = arr.reshape(1, -1) # Reshape the array
     result = model.predict(input_df)
-        return result # Return the prediction
+    return result # Return the prediction
 
 
 
