@@ -228,15 +228,9 @@ def predict():
     result = model.predict(input_df)
     return result # Return the prediction
 
-def predict_p():
 
-    arr = np.array(input_df) # Convert to numpy array
-    #arr = arr.astype(np.float64) # Change the data type to float
-    query = arr.reshape(1, -1) # Reshape the array
-    result = model.predict(input_df)
-    return result # Return the prediction
 
-st.write(predict_p)
+st.write(predict)
 
 onay = Image.open('onay.jfif')
 
