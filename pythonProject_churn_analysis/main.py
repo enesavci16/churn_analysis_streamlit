@@ -230,7 +230,7 @@ def predict():
 
 
 
-st.write(predict)
+
 
 onay = Image.open('onay.jfif')
 
