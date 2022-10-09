@@ -240,9 +240,11 @@ if hesapla:
     if pr==1:
         st.write("CHURN")
         st.image(ret, caption='CHURN')
+        st.write(predict)
     elif pr==0:
         print("NOT CHURN")
         st.image(onay, caption='NOT CHURN')
+        st.write(predict)
 
 
 
