@@ -1,81 +1,10 @@
-
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-#from imblearn.over_sampling import RandomOverSampler
-
-#Model
-# from imblearn.over_sampling import RandomOverSampler
-
-# Model
-# Model
-# from imblearn.over_sampling import RandomOverSampler
-import pickle
-import warnings
-
-import numpy as np
-# Model
-import pandas as pd
 import streamlit as st
+import pickle
+import joblib
+
 from PIL import Image
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
-
-warnings.filterwarnings('ignore')
-from sklearn.metrics import accuracy_score
-
-#DATA
-data_churn=pd.read_csv("churn.csv")
-
-data = data_churn
-data.drop(columns=['RowNumber','CustomerId', 'Surname'], axis=1, inplace=True)
-Geography_dum = pd.get_dummies(data["Geography"], drop_first=True)
-Gender_dum = pd.get_dummies(data["Gender"], drop_first=True)
-data = pd.concat([data, Gender_dum, Geography_dum], axis=1)
-data.drop(["Geography", "Gender"], inplace=True, axis=1)
-data["AgeBin"] = pd.cut(data["Age"], 5)
-data["BalanceBin"] = pd.cut(data["Balance"], 5)
-data["CreditScoreBin"] = pd.cut(data["CreditScore"], 5)
-data["EstimatedSalaryBin"] = pd.cut(data["EstimatedSalary"], 5)
-le = LabelEncoder()
-data["AgeCode"] = le.fit_transform(data["AgeBin"])
-data["BalanceCode"] = le.fit_transform(data["BalanceBin"])
-data["CreditScoreCode"] = le.fit_transform(data["CreditScoreBin"])
-data["EstimatedSalaryCode"] = le.fit_transform(data["EstimatedSalaryBin"])
-data.drop(["AgeBin", "BalanceBin", "CreditScoreBin", "EstimatedSalaryBin", "CreditScore", "Age", "Balance",
-             "EstimatedSalary"], inplace=True, axis=1)
-
-X = data.drop(columns=['Exited'])
-y = data['Exited']
-
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20,random_state=42)
-model= RandomForestClassifier()
-model.fit(X_train, y_train)
-pred=model.predict(X_test)
-acc_rf=accuracy_score(pred,y_test)
-#st.write("Model acuraccy score:")
-#st.write(acc_rf)
-
-
-
-
-# save the model to disk
-# save the model to disk
-filename = 'finalized_model.sav'
-pickle.dump(model, open(filename, 'wb'))
-
-# some time later...
-
-
-
-# some time later...
-
-
-
+import numpy as np
+import pandas as pd
 image = Image.open('akademi.jpeg')
 st.image(image, caption='Istanbul Data Science Academy')
 
@@ -85,20 +14,20 @@ st.title('CHURN PREDICTION')
 
 st.sidebar.header('INPUT')
 def user_input_features():
-    selected_CreditScore = st.sidebar.slider('Credit Score', 0,900, 1)
-    selected_Geography = st.sidebar.selectbox("Select Geography", ["France", "Spain", "Germany"])
-    selected_Gender = st.sidebar.selectbox("Select Gender",  ["Male", "Female"])
-    selected_Age = st.sidebar.slider( "Select Age:",18,110)
+    selected_CreditScore = st.sidebar.slider('Kredi skorunu giriniz', 0,900, 1)
+    selected_Geography = st.sidebar.selectbox("Bölge seçiniz", ["France", "Spain", "Germany"])
+    selected_Gender = st.sidebar.selectbox("Cinsiyet seçiniz",  ["Male", "Female"])
+    selected_Age = st.sidebar.slider( "Yaşınızı giriniz:",18,110)
 
-    selected_Tenure = st.sidebar.slider("Tenure", 0,50,1)
-    selected_Balance = st.sidebar.number_input("Balance",
+    selected_Tenure = st.sidebar.slider("Kaç yıldır müşterimiz siniz?", 0,50,1)
+    selected_Balance = st.sidebar.number_input("Lütfen bankamızdaki bakiyenizi giriniz:",
                                                value=0,
                                                min_value=0,
                                                max_value=300000)
-    selected_NumOfProducts = st.sidebar.slider("Num of Products",0,10,1)
-    selected_HasCrCard = st.sidebar.selectbox("Has Credit Card?",  ["Yes", "No"])
-    selected_IsActiveMember = st.sidebar.selectbox("Is Active Member?",["Active", "Passive"])
-    selected_EstimatedSalary = st.sidebar.number_input("Estimated Salary",
+    selected_NumOfProducts = st.sidebar.slider("Lütfen bankamızdaki ürün sayısını giriniz:",0,10,1)
+    selected_HasCrCard = st.sidebar.slider("Sahip olunan kredi kart sayısı", 0,10, 1)
+    selected_IsActiveMember = st.sidebar.selectbox("Aktif üye mi?",["Aktif", "Pasif"])
+    selected_EstimatedSalary = st.sidebar.number_input("Tahmini gelir seviyesi:",
                                                        value=0,
                                                        min_value=0,
                                                        max_value=200000)
@@ -199,18 +128,12 @@ def dummy_gender(df):
     return df
 
 def dummy_active(df):
-    if df["IsActiveMember"].values == "Active":
+    if df["IsActiveMember"].values == "Aktif":
         df["IsActiveMember"] = df["IsActiveMember"] = 1
-    elif df["IsActiveMember"].values == "Passive":
+    elif df["IsActiveMember"].values == "Pasif":
       df["IsActiveMember"] = df["IsActiveMember"] = 0
     return df
 
-def dummy_Credit_Card(df):
-    if df["HasCrCard"].values == "Yes":
-        df["HasCrCard"] = df["HasCrCard"] = 1
-    elif df["HasCrCard"].values == "No":
-      df["HasCrCard"] = df["HasCrCard"] = 0
-    return df
 
 
 dummy_geo(input_df)
@@ -220,26 +143,24 @@ dummy_score(input_df)
 dummy_salary(input_df)
 dummy_gender(input_df)
 dummy_active(input_df)
-dummy_Credit_Card(input_df)
 
-#st.write(input_df)
+st.write(input_df)
 
-# load the model from disk
-filename = 'last_model_rf.sav'
-loaded_model = pickle.load(open(filename, 'rb'))
+loaded_model = joblib.load("finalized_model.sav")
+
 def predict():
 
     arr = np.array(input_df) # Convert to numpy array
     #arr = arr.astype(np.float64) # Change the data type to float
     query = arr.reshape(1, -1) # Reshape the array
-    result = model.predict(input_df)
+    result = loaded_model.predict(input_df)
     return result # Return the prediction
 
 
 
-onay = Image.open('onay.jfif')
+onay = Image.open('onay.png')
 
-ret = Image.open('ret_2.jfif')
+ret = Image.open('ret_2.png')
 
 hesapla=st.button("CHURN ANALYSIS")
 if hesapla:
